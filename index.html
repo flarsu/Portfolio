@@ -6,6 +6,15 @@
     <title>Portfolio</title>
     <link rel="icon" href="./icon.png">
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NM9XKSJ88B"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-NM9XKSJ88B');
+    </script>
     <!---Bootstrap--->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -278,17 +287,18 @@
     GitHubActivity.feed({
 	username: "flarsu",	selector: "#ghfeed",});
 
-    GitHubCalendar(".calendar", "flarsu");
+    // GitHubCalendar(".calendar", "flarsu");
 
     // or enable responsive functionality:
     GitHubCalendar(".calendar", "flarsu", { responsive: true });
 
     // Use a proxy
-    GitHubCalendar(".calendar", "flarsu", {
-       proxy (username) {
-         return fetch(`https://your-proxy.com/github?user=${username}`)
-       }
-    }).then(r => r.text())
+    // username ="flarsu"
+    // GitHubCalendar(".calendar", "flarsu", {
+    //    proxy (username) {
+    //      return fetch(`https://your-proxy.com/github?user=${username}`)
+    //    }
+    // }).then(r => r.text())
 </script>
 </body>
 </html>
