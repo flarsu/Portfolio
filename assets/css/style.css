@@ -1,7 +1,7 @@
 body {
     font-family: 'Lato', arial, sans-serif;
     color: #434343;
-    background: #8f353d;
+    background: #c7c5c5;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -116,8 +116,8 @@ body {
   /* ======= Header ======= */
   .header {
     padding: 30px 0;
-    background: rgba(150, 70, 70, 0.966);
-    border-top: 10px solid #910316;
+    background: rgba(138, 132, 132, 0.966);
+    border-top: 10px solid #555454;
   }
   
   .header .btn {
