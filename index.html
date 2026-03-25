@@ -1,317 +1,913 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="icon" href="./icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rishav Sharma — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #0a0c0a;
+  --bg2:       #0f120f;
+  --bg3:       #141814;
+  --green:     #39ff5a;
+  --green-dim: #1a7a2e;
+  --green-mid: #22c43e;
+  --amber:     #f5a623;
+  --text:      #c8d4c8;
+  --text-dim:  #5a6e5a;
+  --border:    #1e281e;
+  --border2:   #243024;
+  --mono:      'JetBrains Mono', monospace;
+  --display:   'Syne', sans-serif;
+}
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NM9XKSJ88B"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    gtag('config', 'G-NM9XKSJ88B');
-    </script>
-    <!---Bootstrap--->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!--//Bootstrap-->
-    <!--fafa-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!--//fafa-->
-    <!--style-->
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <!--//style-->
-    <!--FOntAwesome-->
-    <link href="./assets/fontawesome-free-5.15.1-web/css/fontawesome.css" rel="stylesheet">
-    <link href="./assets/fontawesome-free-5.15.1-web/css/brands.css" rel="stylesheet">
-    <link href="./assets/fontawesome-free-5.15.1-web/css/solid.css" rel="stylesheet">
-    <!--//FontAwesome-->
+html { scroll-behavior: smooth; }
 
-    <!--Plugin-->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/octicons/2.0.2/octicons.min.css">
-    <link rel="stylesheet" href="github-activity-0.1.5.min.css">
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
 
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
-    <script type="text/javascript" src="github-activity-0.1.5.min.js"></script>
+/* ── GRID TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
 
-    <script  src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js"></script>
-    <link  rel="stylesheet"  href="https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css"/>
-    <!--//Plugin-->
+/* ── SCAN LINE ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+  height: 56px;
+  background: rgba(10,12,10,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border2);
+}
+
+.nav-logo {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--green);
+  letter-spacing: 0.1em;
+}
+.nav-logo span { color: var(--text-dim); }
+
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--green); }
+
+/* ── SECTIONS ── */
+section { position: relative; z-index: 2; }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 100px 40px 60px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.2s;
+}
+.hero-eyebrow::before { content: '> '; color: var(--green-dim); }
+
+.hero-name {
+  font-family: var(--display);
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin-bottom: 8px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.35s;
+}
+.hero-name .accent { color: var(--green); }
+
+.hero-title {
+  font-family: var(--display);
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 400;
+  color: var(--text-dim);
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.5s;
+}
+
+.hero-desc {
+  font-size: 14px;
+  color: var(--text);
+  max-width: 560px;
+  line-height: 1.9;
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.65s;
+  border-left: 2px solid var(--green-dim);
+  padding-left: 20px;
+}
+
+.hero-actions {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.8s;
+}
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 24px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.btn-primary {
+  background: var(--green);
+  color: #000;
+  font-weight: 700;
+  border: none;
+}
+.btn-primary:hover { background: var(--green-mid); transform: translateY(-1px); }
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border2);
+}
+.btn-ghost:hover { border-color: var(--green-dim); color: var(--green); }
+
+/* ── STATUS BAR ── */
+.status-bar {
+  position: absolute; bottom: 40px; left: 40px; right: 40px;
+  display: flex; gap: 32px; flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 1s;
+}
+.status-item { display: flex; flex-direction: column; gap: 2px; }
+.status-label { font-size: 10px; letter-spacing: 0.2em; color: var(--text-dim); text-transform: uppercase; }
+.status-value { font-size: 20px; font-weight: 700; color: var(--green); font-family: var(--display); }
+.status-sub { font-size: 11px; color: var(--text-dim); }
+
+/* ── SECTION WRAPPER ── */
+.section-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 80px 40px;
+}
+
+.section-label {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 48px;
+}
+.section-label::before {
+  content: attr(data-num);
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: 0.15em;
+}
+.section-label h2 {
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border2);
+}
+
+/* ── EXPERIENCE ── */
+#experience { border-top: 1px solid var(--border); }
+
+.exp-grid { display: flex; flex-direction: column; gap: 2px; }
+
+.exp-item {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.exp-item:hover { border-color: var(--green-dim); }
+
+.exp-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: start;
+  padding: 24px 28px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.exp-role { font-family: var(--display); font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.exp-company { font-size: 12px; color: var(--green); letter-spacing: 0.08em; }
+.exp-company span { color: var(--text-dim); }
+
+.exp-meta { text-align: right; }
+.exp-date { font-size: 11px; color: var(--text-dim); white-space: nowrap; }
+.exp-loc { font-size: 11px; color: var(--text-dim); }
+.exp-toggle { color: var(--green-dim); font-size: 18px; margin-top: 2px; transition: transform 0.3s; }
+.exp-item.open .exp-toggle { transform: rotate(45deg); }
+
+.exp-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  padding: 0 28px;
+  border-top: 0px solid var(--border);
+}
+.exp-item.open .exp-body {
+  max-height: 600px;
+  padding: 0 28px 24px;
+  border-top: 1px solid var(--border);
+}
+
+.exp-context {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-style: italic;
+  padding: 14px 0 10px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+
+.exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.exp-bullets li {
+  font-size: 13px;
+  color: var(--text);
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.7;
+}
+.exp-bullets li::before {
+  content: '→';
+  position: absolute; left: 0;
+  color: var(--green-dim);
+  font-size: 12px;
+}
+.exp-bullets li strong { color: var(--green); font-weight: 500; }
+
+/* ── SKILLS ── */
+#skills { border-top: 1px solid var(--border); }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2px;
+}
+
+.skill-block {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 22px 24px;
+  border-radius: 2px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.skill-block:hover {
+  border-color: var(--green-dim);
+  background: var(--bg3);
+}
+.skill-cat {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 12px;
+}
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.skill-tag {
+  font-size: 11px;
+  padding: 3px 10px;
+  background: rgba(57,255,90,0.06);
+  border: 1px solid var(--green-dim);
+  border-radius: 2px;
+  color: var(--text);
+  letter-spacing: 0.04em;
+}
+
+/* ── METRICS ── */
+#metrics { border-top: 1px solid var(--border); background: var(--bg2); }
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2px;
+}
+
+.metric-card {
+  padding: 32px 28px;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.metric-card:hover { border-color: var(--green-dim); }
+.metric-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.metric-card:hover::before { transform: scaleX(1); }
+.metric-num {
+  font-family: var(--display);
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--green);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.metric-desc { font-size: 12px; color: var(--text-dim); line-height: 1.6; }
+
+/* ── PROJECTS ── */
+#projects { border-top: 1px solid var(--border); }
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2px;
+}
+
+.project-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 28px;
+  border-radius: 2px;
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.project-card:hover { border-color: var(--green-dim); transform: translateY(-2px); }
+.project-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--green), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.project-card:hover::after { opacity: 1; }
+
+.project-badge {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 10px;
+  background: rgba(57,255,90,0.1);
+  border: 1px solid var(--green-dim);
+  color: var(--green);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  margin-bottom: 14px;
+}
+.project-name {
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.project-desc { font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 16px; }
+.project-award {
+  font-size: 11px;
+  color: var(--amber);
+  display: flex; align-items: center; gap: 6px;
+}
+.project-award::before { content: '★'; }
+
+/* ── CONTACT ── */
+#contact { border-top: 1px solid var(--border); }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.contact-cta {
+  font-family: var(--display);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.contact-cta .accent { color: var(--green); }
+.contact-sub { font-size: 13px; color: var(--text-dim); line-height: 1.8; margin-bottom: 32px; }
+
+.contact-links { display: flex; flex-direction: column; gap: 2px; }
+.contact-link {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px 20px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.2s;
+  color: var(--text);
+}
+.contact-link:hover {
+  border-color: var(--green-dim);
+  background: var(--bg3);
+  color: var(--green);
+  padding-left: 28px;
+}
+.contact-link-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); }
+.contact-link-value { font-size: 13px; color: inherit; }
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 2;
+  border-top: 1px solid var(--border);
+  padding: 24px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-left { font-size: 11px; color: var(--text-dim); }
+.footer-left span { color: var(--green); }
+.footer-right { font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em; }
+
+/* ── TYPEWRITER ── */
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  border-right: 2px solid var(--green);
+  white-space: nowrap;
+  animation: blink 0.9s step-end infinite;
+}
+@keyframes blink { 50% { border-color: transparent; } }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--green-dim); border-radius: 2px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 680px) {
+  nav { padding: 0 20px; }
+  .nav-links { gap: 16px; }
+  .section-inner { padding: 60px 20px; }
+  #hero { padding: 100px 20px 60px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+  .status-bar { position: relative; bottom: auto; left: auto; right: auto; margin-top: 48px; }
+  #hero { min-height: auto; padding-bottom: 40px; }
+}
+</style>
 </head>
 <body>
-    <!-- ******HEADER****** --> 
-    <header class="header">
-        <div class="container clearfix">                       
-            <img class="profile-image img-fluid float-left rounded-circle" src="assets/images/profile.jpg" alt="profile image" />
-            <div class="profile-content float-left">
-                <h1 class="name">Rishav Sharma</h1>
-                <h2 class="desc">Computer Engineering Student</h2>   
-                <ul class="social list-inline">
-                    <li class="list-inline-item"><a href="https://twitter.com/RishavS49426094" target="_blank"><i class="fab fa-twitter fa-2x"></i></a></li>
-                    <li class="list-inline-item"><a href="https://linkedin.com/in/rishav-sharma-6b2152176/" target="_blank"><i class="fab fa-linkedin fa-2x" aria-hidden="true"></i></a></li>
-                    <li class="list-inline-item"><a href="https://github.com/flarsu" target="_blank"><i class="fab fa-github-alt fa-2x"></i></a></li>    
-                    <!-- <li class="list-inline-item"><a href="https://kaggle.com/srishav" target="_blank"><i class="fab fa-kaggle fa-2x"></i></a></li>     -->
-                </ul> 
-            </div><!--//profile-->
-            <a class="btn btn-cta-primary float-right" href="#contact" ><i class="fas fa-paper-plane"></i> Contact Me</a> 
-            <a class="btn btn-cta-primary float-right" href="https://drive.google.com/file/d/13vIYOFIeHaw_3q5gSuEtIcVkxypCeY3-/view?usp=sharing" target="_blank"><i class="fa fa-download"></i> Resume</a>              
-        </div><!--//container-->
-    </header><!--//header-->
 
-    <div class="container sections-wrapper">
-        <div class="row">
-            <div class="primary col-lg-8 col-12">
-                <section class="about section">
-                    <div class="section-inner shadow-sm rounded">
-                        <h2 class="heading">About Me</h2>
-                        <div class="content">
-                            <p>I am a curious and visionary Deep Learning Researcher, currently working with the Generative Adversarial Networks, a fast and quiet emerging deep learning field. I am also well equipped with Algorithms and Data Structure's knowledge in addition to that I also have good experience with web development. My active participation in Hackathons adds on to my profile.
-                                 </p>
-                                 <p>Open for all kind of Research and SDE Internship roles. <i class="fa fa-smile"></i></p>
-                                         
-                         
-                        </div><!--//content-->
-                    </div><!--//section-inner-->                 
-                </section><!--//section-->
-    
-               <section class="latest section">
-                    <div class="section-inner shadow-sm rounded">
-                        <h2 class="heading">Latest Projects</h2>
-                        <div class="content">    
-                                               
-                            <div class="item featured text-center">
-                                
-                                <div class="featured-image has-ribbon">
-                                    <a href="https://github.com/flarsu/Sat2Map" target="_blank">
-                                    <img class="img-fluid project-image rounded shadow-sm" src="assets/images/spec_img.png" alt="project name" />
-                                    </a>
-                                    <div class="ribbon">
-                                        <div class="text">New</div>
-                                    </div>
-                                </div>
-                                
-                                
-                                <h3 class="title mb-3"><a href="#" target="_blank">Denoise</a></h3>
-                                <div class="desc text-left">                                    
-                                    <p> We all have that single problem while a online confrence , the background noise which degrades your experience of the confrence.This project filters a noisy sound to a denoised sound where only speakers voice is heard, as of now this is in building stage and not realtime.
-                                        It uses a Generative model to filter the noisy input audio.For training this model we have used a AeGAN(Acoustic Enhanancement GAN) which was inspired form a research paper.
-                                         <br>
-                                     <a href="#"><i class="fa fa-external-link-alt"></i>Upcoming Project</a> </p>
-                                </div><!--//desc-->         
-                            </div><!--//item-->
-                            <hr class="divider" />
-                            <div class="item row">
-                                <a class="col-md-4 col-12" href="https://github.com/flarsu/Sat2Map" target="_blank">
-                                <img class="img-fluid project-image rounded shadow-sm" src="assets/images/pix2pix.jpg" alt="project name" />
-                                </a>
-                                <div class="desc col-md-8 col-12">
-                                    <h3 class="title"><a href="https://flarsu.github.io/mars-and-spaceship/" target="_blank">Sat2Map-Satalite Image to Map Image Converter</a></h3>
-                                    <p class="mb-2">This project uses Generative Adversarial Networks a newly emerging field in <b>Deep Learning</b>.This project converts a Satellite image to Map image.
-                                        Pix2Pix GAN is used in the project, this can be considered as a Supervised Learning method as it is a Paired Image  to Image translation
-                                    which is trained on a dataset of satellite images and target map images. </p>
-                                    <p><a class="more-link" href="https://github.com/flarsu/Sat2Map" target="_blank"><i class="fa fa-external-link-alt"></i>Find out more</a></p>
-                                </div><!--//desc-->                          
-                            </div><!--//item-->
-                            <div class="item row">
-                                <a class="col-md-4 col-12" href="https://flarsu.github.io/mars-and-spaceship/" target="_blank">
-                                <img class="img-fluid project-image rounded shadow-sm" src="assets/images/tic.jpg" alt="project name" />
-                                </a>
-                                <div class="desc col-md-8 col-12">
-                                    <h3 class="title"><a href="https://flarsu.github.io/mars-and-spaceship/" target="_blank">Tic-Ta-Toe</a><i class="fab fa-js"></i><i class="fab fa-html5"></i><i class="fab fa-css3"></i></h3>
-                                    <p class="mb-2">A basic Tic-Tac-Toe game using JavaScript ,built for playing against Computer as well as Friends.Computer use Minimax algorithm for playing which chooses best move for the computer to play.Minimax algorithm is a two player algorithm which finds a best move against any of the opponent's.Alpha-Beta Pruning is also used for optimizing the Minimax Algorithm. </p>
-                                    <p><a class="more-link" href="https://github.com/flarsu/mars-and-spaceship/" target="_blank"><i class="fa fa-external-link-alt"></i>Find out more</a></p>
-                                </div><!--//desc-->                          
-                            </div><!--//item-->
-                            
-                            <div class="item row">
-                                <a class="col-md-4 col-12" href="https://github.com/flarsu/SIH2020_IC474_The_Pack_GitRepository_MLRIT" target="_blank">
-                                <img class="img-fluid project-image rounded shadow-sm" src="assets/images/eureka.jpg" alt="project name" />
-                                </a>
-                                <div class="desc col-md-8 col-12">
-                                    <h3 class="title"><a href="https://github.com/flarsu/SIH2020_IC474_The_Pack_GitRepository_MLRIT" target="_blank">Eureka-Education made Easy</a><i class="fab fa-python"></i><i class="fab fa-node-js"></i><i class="fab fa-microsoft"></i></h3>
-                                    <p class="mb-2">An all-in-one Educational platform  webapp which won my team the 1'st position in Smart India Hackathon 2020.Main features of this app are Questions generation from text provided ,text to summary and  Language translation .</p>
-                                    <p><a class="more-link" href="https://github.com/flarsu/SIH2020_IC474_The_Pack_GitRepository_MLRIT" target="_blank"><i class="fa fa-external-link-alt"></i>Find out more</p>
-                                </div><!--//desc-->                          
-                            </div><!--//item-->
-                          
-                            
-                        </div><!--//content-->  
-                        <a class="btn btn-cta-secondary" href="https://github.com/flarsu" target="_blank">More on GitHub <i class="fas fa-chevron-right pt-1"></i></a>
-                    </div><!--//section-inner-->                
-                </section><!--//section-->
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">RS<span>://portfolio</span></div>
+  <div class="nav-links">
+    <a href="#experience">Experience</a>
+    <a href="#skills">Stack</a>
+    <a href="#metrics">Impact</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
 
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">Software Engineer · Bengaluru, India</div>
+  <h1 class="hero-name">Rishav<br><span class="accent">Sharma</span></h1>
+  <p class="hero-title">Platform &amp; Infrastructure Engineering</p>
+  <p class="hero-desc">
+    I build the systems that let hundreds of engineers ship without thinking about databases, cloud migrations, or ops toil.
+    Currently at <strong style="color:var(--green)">Gojek</strong> — Southeast Asia's leading super-app — designing multi-cloud infrastructure at scale.
+  </p>
+  <div class="hero-actions">
+    <a href="mailto:srishav669@gmail.com" class="btn btn-primary">Get in touch</a>
+    <a href="https://linkedin.com/in/sharma-rishav" target="_blank" class="btn btn-ghost">LinkedIn</a>
+    <a href="https://github.com/" target="_blank" class="btn btn-ghost">GitHub</a>
+  </div>
 
-                <section class="experience section">
-                    <div class="section-inner shadow-sm rounded">
-                        <h2 class="heading">Work Experience</h2>
-                        <div class="content">
-                            <!-- <div class="item">
-                                <h3 class="title">Heading <span class="place"><a href="#">Sub-Heading</a></span> <span class="year">Time Span</span></h3>
-                                <p>Description</p>
-                            </div> -->
-                            For now my Experience lies in my Projects. Please go see my projects on <a href="https://github.com/flarsu/"><b><i>Github</i></b></a>                             
-                        </div><!--//content-->  
-                    </div><!--//section-inner-->                 
-                </section><!--//section-->
-                <section class="github section">
-                    <div class="section-inner shadow-sm rounded">
-                        <h2 class="heading">My GitHub</h2>  
-                        <h5 style="margin:1em"><b><i>GitHub Calendar</i></b></h5>                      
-                        <div id="calendar" class="calendar">
+  <div class="status-bar">
+    <div class="status-item">
+      <div class="status-label">Current role</div>
+      <div class="status-value" style="font-size:16px;line-height:1.3">SDE II</div>
+      <div class="status-sub">Gojek · Since Oct 2024</div>
+    </div>
+    <div class="status-item">
+      <div class="status-label">Experience</div>
+      <div class="status-value">3+</div>
+      <div class="status-sub">years in prod systems</div>
+    </div>
+    <div class="status-item">
+      <div class="status-label">Primary lang</div>
+      <div class="status-value" style="font-size:16px;line-height:1.3">Go</div>
+      <div class="status-sub">+ TypeScript · C/C++</div>
+    </div>
+    <div class="status-item">
+      <div class="status-label">Clouds</div>
+      <div class="status-value" style="font-size:16px;line-height:1.3">4</div>
+      <div class="status-sub">GCP · AWS · AliCloud · Tencent</div>
+    </div>
+  </div>
+</section>
 
-                        </div><!--//calendar-->
-                        <h5 style="margin:1em"><b>GitHub Ativity</b></h5>
-                        <div id="ghfeed" class="ghfeed">
-                        </div><!--//ghfeed-->
-                        
-                    </div><!--//secton-inner-->
-                </section><!--//section-->
+<!-- METRICS -->
+<section id="metrics">
+  <div class="section-inner">
+    <div class="section-label" data-num="// 00">
+      <h2>Impact by numbers</h2>
+    </div>
+    <div class="metrics-grid reveal">
+      <div class="metric-card">
+        <div class="metric-num">250+</div>
+        <div class="metric-desc">PostgreSQL instances migrated to HA (Patroni + Consul) with 99.99% uptime during cutover</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">130+</div>
+        <div class="metric-desc">EOL Redis components upgraded and onboarded to Redis Sentinel for zero single-points-of-failure</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">~80%</div>
+        <div class="metric-desc">Reduction in manual ops toil via Argo Workflows + Terraform + Ansible async pipelines</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">~35%</div>
+        <div class="metric-desc">CI infrastructure cost savings through self-hosted GitLab runners on AWS Auto Scaling Groups</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">50+</div>
+        <div class="metric-desc">Product teams unblocked by Kafka event streaming integration in the internal PAAS platform</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">170M+</div>
+        <div class="metric-desc">Users on the platform whose data infrastructure I help keep running and migrating</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-     </div>
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label" data-num="// 01">
+      <h2>Experience</h2>
+    </div>
+    <div class="exp-grid reveal">
 
-            <div class="secondary col-lg-4 col-12">
-                <aside class="info aside section">
-                   <div class="section-inner shadow-sm rounded">
-                       <h2 class="heading sr-only">Basic Information</h2>
-                       <div class="content">
-                           <ul class="list-unstyled">
-                               <li><i class="fas fa-map-marked-alt"></i><span class="sr-only">Location:</span>Pune, India</li>
-                               <li><i class="fa fa-envelope"></i><span class="sr-only">Email:</span><a href="#">srishav669@gmail.com</a></li>
-                           </ul>
-                       </div><!--//content-->  
-                   </div><!--//section-inner-->                 
-               </aside><!--//aside-->
-               
-		    
-		<aside class="education aside section">
-                   <div class="section-inner shadow-sm rounded">
-                       <h2 class="heading">Education</h2>
-                       <div class="content">
-                           <div class="item">
-                               <h3 class="title"><i class="fas fa-user-graduate"></i> BE Computer Engineering</h3>
-                               <h4 class="university">Army Institute of Technology<span class="year">(2018-2022)</span></h4>
-                           </div><!--//item-->
-                       </div><!--//content-->
-                   </div><!--//section-inner-->
-               </aside><!--//section-->    
-               <aside class="skills aside section">
-                   <div class="section-inner shadow-sm rounded">
-                       <h2 class="heading">Skills</h2>
-                       <div class="content">
-                           <div class="skills">
-                            <button type="button" class="btn btn-success">Python3</button>
-                            <button type="button" class="btn btn-info">C++</button>
-                            <button type="button" class="btn btn-primary">PyTorch</button>
-                            <button type="button" class="btn btn-warning">TensorFlow</button>
-                            <button type="button" class="btn btn-info">Keras</button>
-                            <button type="button" class="btn btn-danger">Algorithms</button>
-                            <button type="button" class="btn btn-primary">OpenCv</button>
-                            <button type="button" class="btn btn-info">Numpy,Pandas, Matplotlib</button>
-                            <button type="button" class="btn btn-danger">Computer Vission</button>
-                            <button type="button" class="btn btn-warning">GANs</button>
-                            <button type="button" class="btn btn-success">NLP</button>
-                            <button type="button" class="btn btn-dark">Flask</button>
+      <!-- Gojek SDE2 -->
+      <div class="exp-item open">
+        <div class="exp-header" onclick="toggleExp(this)">
+          <div>
+            <div class="exp-role">Software Engineer II</div>
+            <div class="exp-company">Gojek <span>· SDE 2</span></div>
+          </div>
+          <div class="exp-meta">
+            <div class="exp-date">Oct 2024 — Present</div>
+            <div class="exp-loc">Bengaluru, India</div>
+            <div class="exp-toggle">+</div>
+          </div>
+        </div>
+        <div class="exp-body">
+          <div class="exp-context">Southeast Asia's leading super-app — ride-hailing, food delivery, payments, logistics — serving 170M+ users.</div>
+          <ul class="exp-bullets">
+            <li>Leading cloud migration of stateful infrastructure from <strong>GCP/AWS → AliCloud</strong>, designing the zero-downtime migration foundation used by 50+ product teams.</li>
+            <li>Architected <strong>Kafka event streaming</strong> support in the internal PAAS platform, enabling async data pipelines across the engineering org.</li>
+            <li>Adding <strong>MySQL resource management</strong> to the platform, enabling product developers to fully own MySQL cluster configuration via a self-service interface.</li>
+            <li>Building next-gen multi-cloud PAAS with <strong>Tencent + AliCloud</strong> support — owned the stateful component management layer from RFC to production.</li>
+          </ul>
+        </div>
+      </div>
 
-                           </div>
-                           <div class="skillset">
-<!--                               
-                               <div class="item">
-                                   <h3 class="level-title">Python &amp; Django<span class="level-label" data-toggle="tooltip" data-placement="left" data-animation="true" title="You can use the tooltip to explain more about your skill level..."><i class="fas fa-info-circle"></i>Expert</span></h3>
-                                   <div class="level-bar">
-                                       <div class="level-bar-inner" data-level="96%">
-                                       </div>                                      
-                                   </div>                              
-                               </div> -->
-                               <p><a class="more-link" href="https://github.com/flarsu/"><i class="fas fa-external-link-alt"></i>More on GitHub</a></p> 
-                           </div>              
-                       </div><!--//content-->  
-                   </div><!--//section-inner-->                 
-               </aside><!--//section-->
-               
-           
+      <!-- Gojek SDE1 -->
+      <div class="exp-item">
+        <div class="exp-header" onclick="toggleExp(this)">
+          <div>
+            <div class="exp-role">Software Engineer I</div>
+            <div class="exp-company">Gojek <span>· SDE 1</span></div>
+          </div>
+          <div class="exp-meta">
+            <div class="exp-date">Aug 2022 — Oct 2024</div>
+            <div class="exp-loc">Bengaluru, India</div>
+            <div class="exp-toggle">+</div>
+          </div>
+        </div>
+        <div class="exp-body">
+          <ul class="exp-bullets">
+            <li>Built a self-service <strong>PAAS platform</strong> handling Day-1 provisioning and Day-2 lifecycle ops (upgrades, scaling, failover) for PostgreSQL, Redis, MongoDB, and Kafka.</li>
+            <li>Backend in <strong>Golang on Kubernetes</strong>, frontend in <strong>Next.js</strong>; integrated Argo Workflows for async Ansible and Terraform pipelines — cutting ops toil by <strong>~80%</strong>.</li>
+            <li>Migrated <strong>250+ PostgreSQL instances</strong> to HA using Patroni + Consul; 99.99% uptime during cutover.</li>
+            <li>Upgraded <strong>130+ EOL Redis components</strong> to latest OS; onboarded Redis Sentinel for automatic failover.</li>
+            <li>Self-hosted GitLab CI runners on <strong>AWS Auto Scaling Groups</strong>, reducing CI infrastructure cost by <strong>~35%</strong>.</li>
+          </ul>
+        </div>
+      </div>
 
-               <aside class="education aside section">
-                <div class="section-inner shadow-sm rounded">
-                    <h2 class="heading">Achievements</h2>
-                    <div class="content">
-                        <div class="item">
-                            <h3 class="title"><i class="fas fa-trophy"></i> Smart India Hackathon 2020</h3>
-                            <h4 class="university">Winners<span class="year">August 2020</span></h4>
-                        </div><!--//item-->
-                        <div class="item">
-                            <h3 class="title"><i class="fas fa-trophy"></i> Pitney Bowes Industrial Hackathon</h3>
-                            <h4 class="university">Winners<span class="year">October 2019</span></h4>
-                        </div><!--//item-->
-                    </div><!--//content-->
-                </div><!--//section-inner-->
-            </aside><!--//section-->
-                           
-               
-               <aside class="blog aside section">
-                   <div class="section-inner shadow-sm rounded">
-                       <h2 class="heading">Research Papers</h2>
-                       <div id="rss-feeds" class="content">
-                        <p>....comming up this month.... <i class="fas fa-smile-wink fa-2x "></i> </p>
-                       </div><!--//content-->
-                   </div><!--//section-inner-->
-               </aside><!--//section-->
-               
-               <aside class="list music aside section">
-                   <div class="section-inner shadow-sm rounded">
-                       <h2 class="heading">Courses</h2>
-                       <div class="content">
-                           <ul class="list-unstyled">
-                               <li><i class="fa fa-graduation-cap"></i> <a href="https://linkedin.com/in/rishav-sharma-6b2152176/">Neural Networks and Deep Learning</a></li>
-                               <li><i class="fa fa-graduation-cap"></i> <a href="https://linkedin.com/in/rishav-sharma-6b2152176/">HyperParameter Tuning and optimizationin Neural Networks</a></li>
-                               <li><i class="fa fa-graduation-cap"></i> <a href="https://linkedin.com/in/rishav-sharma-6b2152176/">Convolutional Neural Networks</a></li>
-                               <li><i class="fa fa-graduation-cap"></i> <a href="https://linkedin.com/in/rishav-sharma-6b2152176/">Sequence Models/ Recurrent Neural Networks</a></li>
-                               <li><i class="fa fa-graduation-cap"></i> <a href="https://linkedin.com/in/rishav-sharma-6b2152176/">Build Basic Generative Adversarial Networks</a></li>
-                               <li><i class="fa fa-graduation-cap"></i> <a href="https://linkedin.com/in/rishav-sharma-6b2152176/">Build Better Generative Adversarial Networks</a></li>
-                               <li><i class="fa fa-graduation-cap"></i> <a href="https://linkedin.com/in/rishav-sharma-6b2152176/">Apply Generative Adversarial Networks</a></li>
-                               <p style="color:rgb(96, 137, 184)">These all are Coursera provided courses. For proof Certificates proceed to my <a href="https://linkedin.com/in/rishav-sharma-6b2152176/"> <b>LinkedIn</b> </a>  profile </p>
-                           </ul>
-                       </div><!--//content-->
-                   </div><!--//section-inner-->
-               </aside><!--//section-->
-               
-               <aside id="contact" class="list conferences aside section">
-                   <div class="section-inner shadow-sm rounded">
-                       <h2 class="heading">Contact</h2>
-                       <div class="content">
-                           <h4>Lets Connect.Say Hi <i class="fas fa-smile-wink fa-2x "></i></h4>
-                        <a href="https://linkedin.com/in/rishav-sharma-6b2152176/" target="_blank"><i class="fab fa-linkedin fa-2x" aria-hidden="true"></i></a>
-                        <a href="https://twitter.com/RishavS49426094" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
-                        <a href=""><i class = "fab fa-facebook fa-2x"></i></a>
-                       </div><!--//content-->
-                   </div><!--//section-inner-->
-               </aside><!--//section-->  
-           </div><!--//secondary-->    
-       </div><!--//row-->
-   </div><!--//masonry-->
-   
+      <!-- BharatPe -->
+      <div class="exp-item">
+        <div class="exp-header" onclick="toggleExp(this)">
+          <div>
+            <div class="exp-role">Software Engineer Intern</div>
+            <div class="exp-company">BharatPe <span>· Fintech</span></div>
+          </div>
+          <div class="exp-meta">
+            <div class="exp-date">Mar 2022 — Jun 2022</div>
+            <div class="exp-loc">Gurgaon, India</div>
+            <div class="exp-toggle">+</div>
+          </div>
+        </div>
+        <div class="exp-body">
+          <ul class="exp-bullets">
+            <li>Implemented <strong>service workers</strong> on the Postpe consumer app, reducing initial load time by <strong>~40%</strong> on slow mobile connections.</li>
+            <li>Built CRM portal dashboards (TypeScript, React, Redux Toolkit) for real-time application usage and user cohort reports.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PayU -->
+      <div class="exp-item">
+        <div class="exp-header" onclick="toggleExp(this)">
+          <div>
+            <div class="exp-role">Software Engineer Intern</div>
+            <div class="exp-company">PayU <span>· Payments</span></div>
+          </div>
+          <div class="exp-meta">
+            <div class="exp-date">Jun 2021 — Feb 2022</div>
+            <div class="exp-loc">Pune, India</div>
+            <div class="exp-toggle">+</div>
+          </div>
+        </div>
+        <div class="exp-body">
+          <ul class="exp-bullets">
+            <li>Built a merchant storefront and seller dashboard for the SBM PAAS platform (ReactJS, Redux, TypeScript, GraphQL) — onboarding <strong>200+ merchants</strong> at launch.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label" data-num="// 02">
+      <h2>Tech stack</h2>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-block">
+        <div class="skill-cat">Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Go</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">C/C++</span>
+          <span class="skill-tag">SQL</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-cat">Infrastructure</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Kubernetes</span>
+          <span class="skill-tag">Terraform</span>
+          <span class="skill-tag">Ansible</span>
+          <span class="skill-tag">Argo Workflows</span>
+          <span class="skill-tag">Helm</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-cat">Cloud</div>
+        <div class="skill-tags">
+          <span class="skill-tag">GCP</span>
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">AliCloud</span>
+          <span class="skill-tag">Tencent Cloud</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-cat">Databases</div>
+        <div class="skill-tags">
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">Redis</span>
+          <span class="skill-tag">MongoDB</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">Patroni</span>
+          <span class="skill-tag">Consul</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-cat">Messaging</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Apache Kafka</span>
+          <span class="skill-tag">Event Streaming</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-cat">Frontend</div>
+        <div class="skill-tags">
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Next.js</span>
+          <span class="skill-tag">Redux</span>
+          <span class="skill-tag">GraphQL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label" data-num="// 03">
+      <h2>Projects</h2>
+    </div>
+    <div class="projects-grid reveal">
+      <div class="project-card">
+        <div class="project-badge">AI · Audio</div>
+        <div class="project-name">Voicely</div>
+        <p class="project-desc">Captures grammatically incorrect speech, corrects it using NLP, and synthesizes the fixed audio back in the original speaker's voice. End-to-end audio → NLP → synthesis pipeline.</p>
+        <div class="project-award">Runner-up · Amdocs HackFest 2021 · 500+ participants</div>
+      </div>
+      <div class="project-card">
+        <div class="project-badge">Platform · Content</div>
+        <div class="project-name">Devshots</div>
+        <p class="project-desc">A platform for software engineers who want to stay current without spending hours reading. Curated 5-minute technical reads with a custom content pipeline and fast responsive UI.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label" data-num="// 04">
+      <h2>Contact</h2>
+    </div>
+    <div class="contact-grid reveal">
+      <div>
+        <div class="contact-cta">Let's build<br>something <span class="accent">solid.</span></div>
+        <p class="contact-sub">
+          Open to Software Engineer, Infrastructure, and Platform Engineering roles — especially at companies building in AI, cloud, or developer tooling.
+        </p>
+        <a href="mailto:srishav669@gmail.com" class="btn btn-primary">srishav669@gmail.com</a>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:srishav669@gmail.com" class="contact-link">
+          <div>
+            <div class="contact-link-label">Email</div>
+            <div class="contact-link-value">srishav669@gmail.com</div>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/sharma-rishav" target="_blank" class="contact-link">
+          <div>
+            <div class="contact-link-label">LinkedIn</div>
+            <div class="contact-link-value">linkedin.com/in/sharma-rishav</div>
+          </div>
+        </a>
+        <a href="https://github.com/" target="_blank" class="contact-link">
+          <div>
+            <div class="contact-link-label">GitHub</div>
+            <div class="contact-link-value">github.com/your-username</div>
+          </div>
+        </a>
+        <div class="contact-link" style="cursor:default;">
+          <div>
+            <div class="contact-link-label">Location</div>
+            <div class="contact-link-value">Bengaluru, India · Open to remote</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">© 2025 <span>Rishav Sharma</span> · Built with HTML/CSS/JS</div>
+  <div class="footer-right">SDE II · GOJEK · BENGALURU</div>
+</footer>
 
 <script>
-    GitHubActivity.feed({
-	username: "flarsu",	selector: "#ghfeed",});
+// Expand/collapse experience
+function toggleExp(header) {
+  const item = header.closest('.exp-item');
+  item.classList.toggle('open');
+}
 
-    // GitHubCalendar(".calendar", "flarsu");
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      // stagger children
+      const children = e.target.children;
+      Array.from(children).forEach((child, i) => {
+        child.style.transitionDelay = `${i * 0.07}s`;
+      });
+    }
+  });
+}, { threshold: 0.1 });
 
-    // or enable responsive functionality:
-    GitHubCalendar(".calendar", "flarsu", { responsive: true });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Use a proxy
-    // username ="flarsu"
-    // GitHubCalendar(".calendar", "flarsu", {
-    //    proxy (username) {
-    //      return fetch(`https://your-proxy.com/github?user=${username}`)
-    //    }
-    // }).then(r => r.text())
+// Typewriter for hero (subtle — runs on name)
+(function() {
+  const roles = [
+    'Platform Engineering',
+    'Distributed Systems',
+    'Cloud Infrastructure',
+    'Backend Engineering',
+  ];
+  const el = document.querySelector('.hero-title');
+  if (!el) return;
+  let ri = 0, ci = 0, deleting = false;
+  function type() {
+    const word = roles[ri];
+    if (!deleting) {
+      el.textContent = word.slice(0, ++ci);
+      if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+    } else {
+      el.textContent = word.slice(0, --ci);
+      if (ci === 0) { deleting = false; ri = (ri + 1) % roles.length; }
+    }
+    setTimeout(type, deleting ? 40 : 80);
+  }
+  setTimeout(type, 1200);
+})();
+
+// Mouse glow effect
+document.addEventListener('mousemove', (e) => {
+  const x = (e.clientX / window.innerWidth) * 100;
+  const y = (e.clientY / window.innerHeight) * 100;
+  document.documentElement.style.setProperty('--mx', x + '%');
+  document.documentElement.style.setProperty('--my', y + '%');
+});
 </script>
 </body>
 </html>
